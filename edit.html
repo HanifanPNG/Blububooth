@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Oceanbooth Editor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Poppins:wght@400;500;600;700&family=Caveat:wght@400..700&family=Sail&display=swap"
+      rel="stylesheet"
+    />
+    <!-- icon -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <!-- animate Css -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <!-- style font -->
+    <style>
+      .sail {
+        font-family: "Sail", system-ui;
+        font-weight: 400;
+        font-style: normal;
+      }
+      .caveat {
+        font-family: "Caveat", cursive;
+        font-weight: 400;
+        font-style: normal;
+      }
+    </style>
+    <!-- style polaroid -->
+    <style>
+      .polaroid-strip {
+        position: relative;
+        width: 260px;
+        padding: 16px;
+        box-shadow: 0 18px 45px rgba(0, 0, 0, 0.35);
+        display: flex;
+        flex-direction: column;
+        background: #f8c8ec;
+        border-radius: 3px;
+        transform: rotate(-2deg);
+      }
+
+      .polaroid {
+        background: #f5f5f5;
+        padding-top: 13px;
+        padding-left: 13px;
+        padding-right: 13px;
+        box-shadow: 45px rgba(0, 0, 0, 0.35);
+      }
+
+      .polaroid-last {
+        padding-bottom: 30px;
+      }
+
+      .polaroid img {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 3px;
+      }
+    </style>
+  </head>
+
+  <body class="min-h-screen bg-[#f5e8d3]">
+    <nav class="flex items-center justify-between">
+      <div class="sail px-7 py-3 text-2xl font-medium">
+        <h1>Blububooth!</h1>
+      </div>
+    </nav>
+    <div class="flex items-center justify-center">
+      <div class="flex gap-10 my-10">
+        <!-- PREVIEW -->
+        <div id="stripPreview" class="polaroid-strip">
+          <div id="photoLayer"></div>
+          <div id="stickerLayer"></div>
+        </div>
+
+        <!-- CONTROL PANEL -->
+        <div class="w-[320px] space-y-6">
+          <div>
+            <h2 class="font-bold mb-2">Photostrip Color</h2>
+            <div class="flex gap-2">
+              <button
+                onclick="setStripColor('linear-gradient(to bottom, #194e5d, #2c7b8b, #e2bfa1)')"
+                class="w-8 h-8 rounded-full bg-gradient-to-b from-[#194e5d] via-[#2c7b8b] to-[#e2bfa1]"
+              ></button>
+              <button
+                onclick="setStripColor('linear-gradient(to bottom, #654ea3, #eaafc8)')"
+                class="w-8 h-8 rounded-full bg-gradient-to-b from-[#654ea3] to-[#eaafc8] border"
+              ></button>
+              <button
+                onclick="setStripColor('linear-gradient(to bottom, #0F2027, #203A43, #2C5364)')"
+                class="w-8 h-8 rounded-full bg-gradient-to-b from-[#0F2027] via-[#203A43] to-[#2C5364] border"
+              ></button>
+              <button
+                onclick="setStripColor('linear-gradient(to bottom, #f4c4f3, #fc67fa)')"
+                class="w-8 h-8 rounded-full bg-gradient-to-b from-[#f4c4f3] to-[#fc67fa] border"
+              ></button>
+              <button
+                onclick="setStripColor('linear-gradient(to bottom, #373B44, #4286f4)')"
+                class="w-8 h-8 rounded-full bg-gradient-to-b from-[#373B44] to-[#4286f4] border"
+              ></button>
+              <button
+                onclick="setStripColor('#000000')"
+                class="w-8 h-8 rounded-full bg-black"
+              ></button>
+              <button
+                onclick="setStripColor('#e8e1d8')"
+                class="w-8 h-8 rounded-full bg-[#e8e1d8]"
+              ></button>
+            </div>
+          </div>
+
+          <!-- frame Color -->
+          <div>
+            <h2 class="font-bold mb-2">Frame Color</h2>
+            <input
+              type="color"
+              id="frameColorPicker"
+              class="w-10 h-10 p-0 border-none bg-transparent cursor-pointer"
+              title="Pick your own color"
+            />
+          </div>
+
+          <!-- Stickers -->
+          <div>
+            <h2 class="font-bold mb-2">Sea Stickers</h2>
+
+            <div class="flex gap-3">
+              <img
+                src="./assets/stiker/bare-bears/bear8.png"
+                class="w-10 h-10 cursor-pointer"
+                onclick="applyStickerTemplate('whiteBear')"
+              />
+              <img
+                src="./assets/stiker/bare-bears/panda5.png"
+                class="w-10 h-10 cursor-pointer"
+                onclick="applyStickerTemplate('panda')"
+              />
+              <img
+                src="./assets/stiker/bare-bears/grizzly7.png"
+                class="w-10 h-10 cursor-pointer"
+                onclick="applyStickerTemplate('grizzly')"
+              />
+              <button
+                class="p-3 bg-transparent outline outline-dashed rounded-md text-sm"
+                onclick="clearStiker()"
+              >
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </div>
+          </div>
+
+          <div>
+            <h2 class="font-bold mb-2">Filters</h2>
+            <div class="flex flex-wrap gap-2">
+              <button class="filter-btn">normal</button>
+              <button class="filter-btn">vintage</button>
+              <button class="filter-btn">warm</button>
+              <button class="filter-btn">cool</button>
+              <button class="filter-btn">bw</button>
+              <button class="filter-btn">retro</button>
+              <button class="filter-btn">soft</button>
+            </div>
+          </div>
+
+          <div class="space-y-2 mt-4">
+            <h2 class="font-bold">Date</h2>
+            <label class="flex items-center gap-3 cursor-pointer">
+              <input
+                type="checkbox"
+                id="dateToggle"
+                class="sr-only peer"
+                checked
+              />
+
+              <span
+                class="relative w-11 h-6 bg-gray-300 rounded-full transition peer-checked:bg-emerald-500 after:content-[''] after:absolute after:left-1 after:top-1 after:w-4 after:h-4 after:bg-white after:rounded-full after:transition-transform peer-checked:after:translate-x-5"
+              ></span>
+
+              <span class="text-sm">Enable Date</span>
+            </label>
+          </div>
+
+          <div class="space-y-3">
+            <button
+              id="downloadBtn"
+              class="w-full py-2 rounded-xl bg-[#ffb703] text-white font-semibold"
+            >
+              <i class="fa-solid fa-download"></i> Download Photostrip
+            </button>
+
+            <button
+              onclick="retake()"
+              class="w-full py-2 rounded-xl bg-[#f4a261] text-white font-semibold"
+            >
+              <i class="fa-solid fa-repeat"></i> Retake Photos
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mx-4">
+      <a href="index.html">
+        <button
+          id="backBtn"
+          class="py-2 px-4 rounded-xl bg-[#e76f51] text-white font-semibold"
+        >
+          <i class="fa-solid fa-arrow-left"></i> Back
+        </button>
+      </a>
+    </div>
+    <!-- footer -->
+    <div class="pb-10">
+      <div class="caveat flex items-center justify-center">
+        <h1 class="text-xl">→Made with hnifn.png</h1>
+      </div>
+    </div>
+    <script>
+      function drawPhotoToCanvas(ctx, img, x, y, w, h) {
+        // Fungsi ini memastikan gambar digambar sesuai proporsi kotak di bingkai
+        const imgRatio = img.width / img.height;
+        const canvasRatio = w / h;
+        let sx, sy, sw, sh;
+
+        if (imgRatio > canvasRatio) {
+          sw = img.height * canvasRatio;
+          sh = img.height;
+          sx = (img.width - sw) / 2;
+          sy = 0;
+        } else {
+          sw = img.width;
+          sh = img.width / canvasRatio;
+          sx = 0;
+          sy = (img.height - sh) / 2;
+        }
+        ctx.drawImage(img, sx, sy, sw, sh, x, y, w, h);
+      }
+    </script>
+
+    <script>
+      const photoLayer = document.getElementById("photoLayer");
+      const stickerLayer = document.getElementById("stickerLayer");
+
+      // frame color
+      const frameColorPicker = document.getElementById("frameColorPicker");
+
+      frameColorPicker.addEventListener("input", (e) => {
+        setPolaroidColor(e.target.value);
+      });
+
+      // masuk localstorage
+      const photos = JSON.parse(localStorage.getItem("oceanboothPhotos")) || [];
+      if (photos.length !== 3) {
+        alert("Photo data not found");
+        location.href = "index.html";
+      }
+      // stripp previe
+      const stripPreview = document.getElementById("stripPreview");
+      const downloadBtn = document.getElementById("downloadBtn");
+
+      let activeFilter = "normal";
+      let stripColor = "linear-gradient(to bottom, #194e5d, #2c7b8b, #e2bfa1)";
+      let FrameColor = "#f5f5f5";
+
+      const filters = {
+  normal: "none",
+  vintage: "sepia(0.35) contrast(0.9) brightness(1.1) saturate(1.1)",  
+  warm: "saturate(1.5) sepia(0.2) brightness(1.05) contrast(1.1)",
+  cool: "hue-rotate(180deg) saturate(0.8) brightness(1.05) contrast(1.1) opacity(0.9) hue-rotate(-190deg)", 
+  bw: "grayscale(1) contrast(1.3) brightness(1.1)",
+  retro: "contrast(1.2) saturate(1.3) sepia(0.25) hue-rotate(-10deg) brightness(0.95)",
+  soft: "brightness(1.1) saturate(1.1) contrast(0.9) blur(0.2px)"
+};
+
+      function renderPreview() {
+        photoLayer.innerHTML = "";
+        stripPreview.style.background = stripColor;
+
+        photos.forEach((src, index) => {
+          const frame = document.createElement("div");
+          frame.className = "polaroid";
+
+          if (index === photos.length - 1) {
+            frame.classList.add("polaroid-last");
+          }
+
+          frame.style.background = FrameColor;
+
+          const img = document.createElement("img");
+          img.src = src;
+          img.style.filter = filters[activeFilter];
+
+          frame.appendChild(img);
+
+          if (index === photos.length - 1 && showDate) {
+            const dateEl = document.createElement("div");
+            dateEl.className =
+              "mt-3 text-center text-sm italic text-gray-600 bg-white p-1";
+            dateEl.textContent = formattedDate;
+            frame.appendChild(dateEl);
+          }
+
+          photoLayer.appendChild(frame);
+        });
+      }
+
+      function setStripColor(color) {
+        stripColor = color;
+        renderPreview();
+      }
+
+      function setPolaroidColor(color) {
+        FrameColor = color;
+        renderPreview();
+      }
+
+      document.querySelectorAll(".filter-btn").forEach((btn) => {
+        // class default
+        btn.classList.add(
+          "px-3",
+          "py-1",
+          "bg-black",
+          "text-white",
+          "rounded-full",
+          "text-sm"
+        );
+
+        btn.onclick = () => {
+          activeFilter = btn.textContent;
+
+          // reset semua button
+          document.querySelectorAll(".filter-btn").forEach((b) => {
+            b.classList.remove("bg-white", "text-black");
+            b.classList.add("bg-black", "text-white");
+          });
+
+          // aktifkan button yang diklik
+          btn.classList.remove("bg-black", "text-white");
+          btn.classList.add("bg-white", "text-black");
+          btn.classList.add("transition", "duration-200");
+
+          renderPreview();
+        };
+      });
+
+      // stiker
+      const stickerLayouts = {
+        whiteBear: [
+          {
+            x: 10,
+            y: 20,
+            size: 50,
+            src: "./assets/stiker/bare-bears/bear5.png",
+          },
+          {
+            x: 215,
+            y: 80,
+            size: 50,
+            src: "./assets/stiker/bare-bears/bear6.png",
+          },
+          {
+            x: 0,
+            y: 150,
+            size: 70,
+            src: "./assets/stiker/bare-bears/bear7.png",
+          },
+          {
+            x: 205,
+            y: 215,
+            size: 60,
+            src: "./assets/stiker/bare-bears/bear10.png",
+          },
+          {
+            x: 100,
+            y: 130,
+            size: 70,
+            src: "./assets/stiker/bare-bears/bear9.png",
+          },
+          {
+            x: 180,
+            y: 295,
+            size: 60,
+            src: "./assets/stiker/bare-bears/bear8.png",
+          },
+          {
+            x: 13,
+            y: 310,
+            size: 50,
+            src: "./assets/stiker/bare-bears/bear11.png",
+          },
+          {
+            x: 10,
+            y: 500,
+            size: 50,
+            src: "./assets/stiker/bare-bears/bear12.png",
+          },
+          {
+            x: 200,
+            y: 500,
+            size: 50,
+            src: "./assets/stiker/bare-bears/bear13.png",
+          },
+        ],
+
+        panda: [
+          {
+            x: 10,
+            y: 14,
+            size: 60,
+            src: "./assets/stiker/bare-bears/panda2.png",
+          },
+          {
+            x: 200,
+            y: 15,
+            size: 80,
+            src: "./assets/stiker/bare-bears/panda6.png",
+          },
+          {
+            x: 5,
+            y: 130,
+            size: 70,
+            src: "./assets/stiker/bare-bears/panda3.png",
+          },
+          {
+            x: 200,
+            y: 140,
+            size: 50,
+            src: "./assets/stiker/bare-bears/panda5.png",
+          },
+          {
+            x: 180,
+            y: 295,
+            size: 70,
+            src: "./assets/stiker/bare-bears/panda4.png",
+          },
+          {
+            x: 0,
+            y: 300,
+            size: 80,
+            src: "./assets/stiker/bare-bears/panda7.png",
+          },
+          {
+            x: 10,
+            y: 500,
+            size: 60,
+            src: "./assets/stiker/bare-bears/panda8.png",
+          },
+          {
+            x: 180,
+            y: 500,
+            size: 70,
+            src: "./assets/stiker/bare-bears/panda9.png",
+          },
+        ],
+
+        grizzly: [
+          {
+            x: 10,
+            y: 14,
+            size: 40,
+            src: "./assets/stiker/bare-bears/grizzly9.png",
+          },
+          {
+            x: 190,
+            y: 120,
+            size: 70,
+            src: "./assets/stiker/bare-bears/grizzly2.png",
+          },
+          {
+            x: 5,
+            y: 130,
+            size: 60,
+            src: "./assets/stiker/bare-bears/grizzly3.png",
+          },
+          {
+            x: 180,
+            y: 290,
+            size: 50,
+            src: "./assets/stiker/bare-bears/grizzly4.png",
+          },
+          {
+            x: 20,
+            y: 280,
+            size: 45,
+            src: "./assets/stiker/bare-bears/grizzly6.png",
+          },
+          {
+            x: 15,
+            y: 490,
+            size: 60,
+            src: "./assets/stiker/bare-bears/grizzly7.png",
+          },
+          {
+            x: 190,
+            y: 500,
+            size: 40,
+            src: "./assets/stiker/bare-bears/grizzly.png",
+          },
+        ],
+      };
+
+      function applyStickerTemplate(type) {
+        stickerLayer.innerHTML = "";
+        const layout = stickerLayouts[type];
+        if (!layout) return;
+
+        layout.forEach((pos) => {
+          const sticker = document.createElement("img");
+          sticker.src = pos.src;
+
+          sticker.className = "auto-sticker absolute pointer-events-none";
+          sticker.style.width = pos.size + "px";
+          sticker.style.left = pos.x + "px";
+          sticker.style.top = pos.y + "px";
+
+          stickerLayer.appendChild(sticker);
+        });
+      }
+      function clearStiker() {
+        stickerLayer.innerHTML = "";
+      }
+
+      // toggle date
+      const dateToggle = document.getElementById("dateToggle");
+      const togle = document.getElementById("togle");
+
+      let showDate = true;
+
+      const today = new Date();
+      const formattedDate = today.toLocaleDateString("en-US", {
+        month: "long",
+        day: "numeric",
+        year: "numeric",
+      });
+      dateToggle.addEventListener("change", () => {
+        showDate = dateToggle.checked;
+        renderPreview();
+      });
+
+      // download
+      /* =======================
+   1. FUNGSI PEMBANTU (HARUS ADA)
+   Agar gambar memenuhi kotak tanpa gepeng
+======================= */
+      function drawImageCover(ctx, img, x, y, w, h) {
+  const imgRatio = img.width / img.height;
+  const boxRatio = w / h;
+  let sx, sy, sw, sh;
+
+  // 1. Hitung bagian mana dari foto asli (source) yang akan diambil
+  if (imgRatio > boxRatio) {
+    // Foto asli terlalu lebar (landscape), potong samping kiri-kanan
+    sw = img.height * boxRatio;
+    sh = img.height;
+    sx = (img.width - sw) / 2;
+    sy = 0;
+  } else {
+    // Foto asli terlalu tinggi (portrait), potong atas-bawah
+    sw = img.width;
+    sh = img.width / boxRatio;
+    sx = 0;
+    sy = (img.height - sh) / 2;
+  }
+
+  // 2. Gambar ke canvas
+  // ctx.drawImage(image, sourceX, sourceY, sourceWidth, sourceHeight, destX, destY, destWidth, destHeight)
+  ctx.drawImage(img, sx, sy, sw, sh, x, y, w, h);
+}
+
+      /* =======================
+   2. DOWNLOAD HANDLER (FIXED)
+======================= */
+      /* =======================
+   DOWNLOAD HANDLER (FIXED FOR 3 PHOTOS)
+======================= */
+      downloadBtn.onclick = async () => {
+        const originalText = downloadBtn.innerText;
+        downloadBtn.innerText = "Processing...";
+        downloadBtn.disabled = true;
+
+        try {
+          // 1. Pengaturan Skala agar HD
+          const SCALE = 4; // Mengalikan ukuran preview (260px) menjadi sekitar 1040px
+          const CANVAS_W = 260 * SCALE;
+          const PADDING = 16 * SCALE;
+          const FRAME_INNER_PAD = 13 * SCALE;
+          const PHOTO_W = (260 - 16 * 2 - 13 * 2) * SCALE; // Lebar foto bersih
+          const PHOTO_H = 150 * SCALE; // Mengikuti CSS .polaroid img { height: 150px }
+          const DATE_SPACE = showDate ? 40 * SCALE : 10 * SCALE;
+
+          // Hitung tinggi per kotak polaroid (padding atas + foto + padding bawah)
+          const singleFrameH = FRAME_INNER_PAD + PHOTO_H + FRAME_INNER_PAD;
+          // Total tinggi: Padding luar (atas/bawah) + (3 foto * tinggi frame) + space untuk tanggal
+          const TOTAL_H = PADDING * 2 + singleFrameH * 3 + DATE_SPACE;
+
+          const canvas = document.createElement("canvas");
+          const ctx = canvas.getContext("2d");
+          canvas.width = CANVAS_W;
+          canvas.height = TOTAL_H;
+
+          // --- 2. Render Background Strip ---
+          if (stripColor.startsWith("linear-gradient")) {
+            const colors = stripColor.match(/#[a-fA-F0-9]{6}/g);
+            const grad = ctx.createLinearGradient(0, 0, 0, TOTAL_H);
+            if (colors && colors.length > 1) {
+              colors.forEach((col, idx) =>
+                grad.addColorStop(idx / (colors.length - 1), col)
+              );
+              ctx.fillStyle = grad;
+            } else {
+              ctx.fillStyle = colors ? colors[0] : "#f8c8ec";
+            }
+          } else {
+            ctx.fillStyle = stripColor;
+          }
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+          // --- 3. Render Foto & Frame ---
+          let currentY = PADDING;
+
+          for (let i = 0; i < photos.length; i++) {
+            const img = new Image();
+            img.crossOrigin = "anonymous";
+            img.src = photos[i];
+
+            await new Promise((resolve) => {
+              img.onload = resolve;
+              img.onerror = resolve;
+            });
+
+            const isLast = i === photos.length - 1;
+            const currentFrameH = isLast
+              ? singleFrameH + DATE_SPACE - 10 * SCALE
+              : singleFrameH;
+
+            // Draw Frame Background
+            ctx.filter = "none";
+            ctx.fillStyle = FrameColor;
+            ctx.fillRect(
+              PADDING,
+              currentY,
+              CANVAS_W - PADDING * 2,
+              currentFrameH
+            );
+
+            // Draw Photo
+            if (img.complete && img.naturalWidth !== 0) {
+              ctx.filter = filters[activeFilter] || "none";
+              drawImageCover(
+                ctx,
+                img,
+                PADDING + FRAME_INNER_PAD,
+                currentY + FRAME_INNER_PAD,
+                CANVAS_W - (PADDING + FRAME_INNER_PAD) * 2,
+                PHOTO_H
+              );
+            }
+
+            // Draw Date (Hanya di frame terakhir)
+            if (isLast && showDate) {
+              ctx.filter = "none";
+              ctx.fillStyle = "#4B5563"; // Warna abu-abu teks
+              ctx.font = `${12 * SCALE}px 'Courier New', serif`;
+              ctx.textAlign = "center";
+              ctx.fillText(
+                formattedDate,
+                canvas.width / 2,
+                currentY + singleFrameH + 15 * SCALE
+              );
+            }
+
+            currentY += singleFrameH; // Geser posisi Y untuk foto berikutnya
+          }
+
+          // --- 4. Render Stiker ---
+          const stickers = stickerLayer.querySelectorAll("img");
+          for (const s of stickers) {
+            const sImg = new Image();
+            sImg.crossOrigin = "anonymous";
+            sImg.src = s.src;
+
+            await new Promise((resolve) => {
+              sImg.onload = resolve;
+              sImg.onerror = resolve;
+            });
+
+            if (sImg.complete && sImg.naturalWidth !== 0) {
+              const x = parseFloat(s.style.left) * SCALE;
+              const y = parseFloat(s.style.top) * SCALE;
+              const size = parseFloat(s.style.width) * SCALE;
+              ctx.filter = "none";
+              ctx.drawImage(sImg, x, y, size, size);
+            }
+          }
+
+          // --- 5. Finalize Download ---
+          const link = document.createElement("a");
+          link.download = `oceanbooth-${Date.now()}.png`;
+          link.href = canvas.toDataURL("image/png", 1.0);
+          link.click();
+        } catch (err) {
+          console.error("Download Error:", err);
+          alert(
+            "Gagal mengunduh foto. Pastikan semua gambar dimuat dengan benar."
+          );
+        } finally {
+          downloadBtn.innerText = originalText;
+          downloadBtn.disabled = false;
+        }
+      };
+
+      function retake() {
+        localStorage.removeItem("oceanboothPhotos");
+        location.href = "index.html";
+      }
+
+      renderPreview();
+    </script>
+  </body>
+</html>

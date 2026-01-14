@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Upload Your Photos - PhotoBooth</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&family=Poppins:wght@400;600&family=Caveat:wght@400..700&family=Sail&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      .sail {
+        font-family: "Sail", system-ui;
+      }
+      .caveat {
+        font-family: "Caveat", cursive;
+      }
+      .upload-box {
+        transition: all 0.3s ease;
+        border: 2px solid #9ca3af;
+      }
+      .upload-box:hover {
+        border-color: #6b7280;
+        background-color: #f3f4f6;
+      }
+    </style>
+  </head>
+  <body class="bg-[#F5E8CB] min-h-screen flex flex-col">
+    <header class="w-full">
+      <div class="flex items-center justify-between py-3 px-6">
+        <h1 class="sail text-2xl">Blububooth!</h1>
+      </div>
+    </header>
+
+    <main class="flex-grow flex flex-col items-center py-10 px-4">
+      <h2 class="sail text-4xl mb-12">Upload your photo(s)!</h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-5xl mb-10">
+        <div class="relative group">
+          <label
+            for="file-1"
+            class="upload-box relative w-full h-64 bg-[#EFE9E9]/50 rounded-2xl flex flex-col items-center justify-center cursor-pointer overflow-hidden border-2 border-black block"
+          >
+            <input
+              type="file"
+              id="file-1"
+              class="hidden"
+              accept="image/*"
+              onchange="processAndPreview(this, 'p1', 0)"
+            />
+            <div
+              id="p1"
+              class="flex flex-col items-center w-full h-full justify-center pointer-events-none"
+            >
+              <i class="fa-regular fa-image text-5xl text-gray-400 mb-2"></i>
+              <span class="text-xs text-gray-500">Photo 1</span>
+            </div>
+          </label>
+          <button
+            onclick="removePhoto(0, 'p1')"
+            id="remove-0"
+            class="hidden absolute -top-3 -right-3 bg-red-500 text-white w-8 h-8 rounded-full shadow-xl border-2 border-white z-20 flex items-center justify-center hover:bg-red-600 active:scale-90 transition-all"
+          >
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <div class="relative group">
+          <label
+            for="file-2"
+            class="upload-box relative w-full h-64 bg-[#EFE9E9]/50 rounded-2xl flex flex-col items-center justify-center cursor-pointer overflow-hidden border-2 border-black block"
+          >
+            <input
+              type="file"
+              id="file-2"
+              class="hidden"
+              accept="image/*"
+              onchange="processAndPreview(this, 'p2', 1)"
+            />
+            <div
+              id="p2"
+              class="flex flex-col items-center w-full h-full justify-center pointer-events-none"
+            >
+              <i class="fa-regular fa-image text-5xl text-gray-400 mb-2"></i>
+              <span class="text-xs text-gray-500">Photo 2</span>
+            </div>
+          </label>
+          <button
+            onclick="removePhoto(1, 'p2')"
+            id="remove-1"
+            class="hidden absolute -top-3 -right-3 bg-red-500 text-white w-8 h-8 rounded-full shadow-xl border-2 border-white z-20 flex items-center justify-center hover:bg-red-600 active:scale-90 transition-all"
+          >
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <div class="relative group">
+          <label
+            for="file-3"
+            class="upload-box relative w-full h-64 bg-[#EFE9E9]/50 rounded-2xl flex flex-col items-center justify-center cursor-pointer overflow-hidden border-2 border-black block"
+          >
+            <input
+              type="file"
+              id="file-3"
+              class="hidden"
+              accept="image/*"
+              onchange="processAndPreview(this, 'p3', 2)"
+            />
+            <div
+              id="p3"
+              class="flex flex-col items-center w-full h-full justify-center pointer-events-none"
+            >
+              <i class="fa-regular fa-image text-5xl text-gray-400 mb-2"></i>
+              <span class="text-xs text-gray-500">Photo 3</span>
+            </div>
+          </label>
+          <button
+            onclick="removePhoto(2, 'p3')"
+            id="remove-2"
+            class="hidden absolute -top-3 -right-3 bg-red-500 text-white w-8 h-8 rounded-full shadow-xl border-2 border-white z-20 flex items-center justify-center hover:bg-red-600 active:scale-90 transition-all"
+          >
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="flex flex-col items-center gap-4">
+        <button
+          id="submitBtn"
+          class="bg-[#A3A3A3] text-white px-8 py-3 rounded-xl font-semibold flex items-center gap-2 shadow-md hover:bg-gray-600 transition disabled:opacity-50"
+        >
+          <i class="fa-solid fa-paper-plane"></i> Submit Images
+        </button>
+        <p class="text-xs text-gray-600">Upload all 3 image to submit</p>
+      </div>
+    </main>
+    <div class="mx-4">
+        <a href="index.html">
+          <button
+            id="backBtn"
+            class="py-2 px-4 rounded-xl bg-[#e76f51] text-white font-semibold"
+          >
+            <i class="fa-solid fa-arrow-left"></i> Back
+          </button>
+        </a>
+    </div>
+
+    <footer class="pb-8">
+      <div class="caveat flex items-center justify-center gap-2 text-lg">
+        <span>→ Made with hnifn.png</span>
+      </div>
+    </footer>
+    <script>
+      let uploadedPhotos = [null, null, null];
+
+      // Fungsi untuk memproses gambar (Tambahkan baris untuk memunculkan tombol)
+      function processAndPreview(input, previewId, index) {
+        const file = input.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          const img = new Image();
+          img.onload = function () {
+            const canvas = document.createElement("canvas");
+            const ctx = canvas.getContext("2d");
+            const targetWidth = 900;
+            const targetHeight = 1200;
+            canvas.width = targetWidth;
+            canvas.height = targetHeight;
+
+            const imgRatio = img.width / img.height;
+            const targetRatio = targetWidth / targetHeight;
+            let sx, sy, sw, sh;
+
+            if (imgRatio > targetRatio) {
+              sh = img.height;
+              sw = img.height * targetRatio;
+              sx = (img.width - sw) / 2;
+              sy = 0;
+            } else {
+              sw = img.width;
+              sh = img.width / targetRatio;
+              sx = 0;
+              sy = (img.height - sh) / 2;
+            }
+
+            ctx.drawImage(img, sx, sy, sw, sh, 0, 0, targetWidth, targetHeight);
+            const processedDataUrl = canvas.toDataURL("image/jpeg", 0.6);
+
+            const container = document.getElementById(previewId);
+            container.innerHTML = `<img src="${processedDataUrl}" class="w-full h-full object-cover absolute inset-0">`;
+
+            // Simpan ke array
+            uploadedPhotos[index] = processedDataUrl;
+
+            // TAMPILKAN TOMBOL SILANG
+            document
+              .getElementById(`remove-${index}`)
+              .classList.remove("hidden");
+
+            checkReady();
+          };
+          img.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+
+      // FUNGSI BARU: MENGHAPUS FOTO
+      function removePhoto(index, previewId) {
+        // Kosongkan di array data
+        uploadedPhotos[index] = null;
+
+        // Kembalikan tampilan kotak ke icon default
+        const container = document.getElementById(previewId);
+        const photoNumber = index + 1;
+        container.innerHTML = `
+    <i class="fa-regular fa-image text-5xl text-gray-400 mb-2"></i>
+    <span class="text-xs text-gray-500">Photo ${photoNumber}</span>
+  `;
+
+        // SEMBUNYIKAN TOMBOL SILANG
+        document.getElementById(`remove-${index}`).classList.add("hidden");
+
+        // Reset input file agar bisa upload gambar yang sama jika mau
+        document.getElementById(`file-${photoNumber}`).value = "";
+
+        checkReady();
+      }
+
+      // Pastikan checkReady tetap memeriksa apakah SEMUA (3 foto) sudah terisi
+      function checkReady() {
+        const btn = document.getElementById("submitBtn");
+        const isAllFilled = uploadedPhotos.every((img) => img !== null);
+
+        if (isAllFilled) {
+          btn.classList.remove("bg-[#A3A3A3]", "cursor-not-allowed");
+          btn.classList.add("bg-[#e76f51]");
+          btn.disabled = false;
+        } else {
+          btn.classList.add("bg-[#A3A3A3]", "cursor-not-allowed");
+          btn.classList.remove("bg-[#e76f51]");
+          btn.disabled = true;
+        }
+      }
+
+      document.getElementById("submitBtn").addEventListener("click", () => {
+        const finalPhotos = uploadedPhotos.filter((img) => img !== null);
+        if (finalPhotos.length > 0) {
+          try {
+            localStorage.setItem(
+              "oceanboothPhotos",
+              JSON.stringify(finalPhotos)
+            );
+            window.location.href = "edit.html";
+          } catch (e) {
+            alert("Gambar terlalu besar! Gunakan foto yang lebih kecil.");
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

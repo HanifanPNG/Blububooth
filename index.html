@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blububooth!</title>
+    <!-- font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Poppins:wght@400;500;600;700&family=Caveat:wght@400..700&family=Sail&display=swap"
+      rel="stylesheet"
+    />
+    <!-- icon -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <!-- animate Css -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <!-- style -->
+    <style>
+      .sail {
+        font-family: "Sail", system-ui;
+        font-weight: 400;
+        font-style: normal;
+      }
+      .caveat {
+        font-family: "Caveat", cursive;
+        font-weight: 400;
+        font-style: normal;
+      }
+    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-[#F5E8CB]">
+    <header class="w-full">
+      <div class="flex items-center justify-between py-3 px-4 text-2xl">
+        <h1 class="sail">Blububooth!</h1>
+        <h1
+          onclick="toggleModal()"
+          class="caveat cursor-pointer hover:opacity-70 transition"
+        >
+          About
+        </h1>
+      </div>
+    </header>
+    <section class="min-h-screen px-16">
+      <div class="flex flex-col items-center justify-center">
+        <h1 class="text-3xl sail py-10">Blububooth!</h1>
+        <div class="grid grid-cols-2 items-center h-full">
+          <div class="flex flex-col pb-32 gap-3 justify-center">
+            <a href="takePhoto.html">
+              <button
+                id="startPhoto"
+                class="caveat font-bold bg-green-500 p-3 w-80 text-white rounded-xl text-xl animate__animated animate__headShake animate__infinite infinite"
+              >
+                Start Photo
+              </button>
+            </a>
+            <a href="upload.html">
+              <button
+                class="caveat font-bold bg-yellow-500 p-3 w-80 text-white rounded-xl text-xl"
+              >
+                Upload Photo
+              </button>
+            </a>
+          </div>
+          <div class="relative h-[500px]">
+            <!-- Mockup 2 (di bawah) -->
+            <img
+              src="../assets/img/mockup2.png"
+              width="250"
+              class="absolute top-48 left-20 border-2 border-black border-dashed rotate-6 z-10"
+            />
+
+            <!-- Mockup 1 (di atas / menimpa) -->
+            <img
+              src="../assets/img/mockup1.png"
+              width="250"
+              class="absolute top-0 left-10 border-2 border-black border-dashed -rotate-6 z-20"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div
+      id="aboutModal"
+      class="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4"
+    >
+      <div
+        class="bg-white rounded-[2.5rem] p-8 max-w-lg w-full relative shadow-2xl animate__animated animate__zoomIn"
+      >
+        <button
+          onclick="toggleModal()"
+          class="absolute top-6 right-8 text-gray-400 hover:text-gray-600 text-xl"
+        >
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+
+        <div class="text-left">
+          <h2 class="poppins font-bold text-2xl text-gray-800 mb-1">
+            Welcome to Blububooth! 🎉 📸
+          </h2>
+          <p class="poppins text-xs text-gray-400 mb-6">What is blububooth?</p>
+
+          <div
+            class="poppins text-gray-600 space-y-4 leading-relaxed text-sm md:text-base"
+          >
+            <p class="caveat text-2xl">
+              A simple web photobooth with cute stickers. I made this just for
+              fun and to fill my semester break at home, but I have to thank the
+              AI ​​for helping me detect errors.
+            </p>
+            <p class="caveat text-2xl">
+              I was also inspired by "briuwu" for its appearance and features.
+              It's so cool, I wanted to practice and make one too.
+            </p>
+            <p class="italic text-gray-500 flex items-center gap-2">
+              <i class="fa-solid fa-camera-retro"></i>
+              Smile, be happy, and enjoy your youth with various cool creative
+              ideas. Let's immortalize memories together.click at a time!
+            </p>
+          </div>
+
+          <div class="flex gap-6 mt-8 text-xl text-gray-700 justify-center">
+            <a href=" https://www.instagram.com/hnifn.png" class="hover:text-pink-500 transition"
+              ><i class="fa-brands fa-instagram"></i
+            ></a>
+            <a href="https://www.tiktok.com/@hanippn?is_from_webapp=1&sender_device=pc" class="hover:text-black transition"
+              ><i class="fa-brands fa-tiktok"></i
+            ></a>
+            <a href="https://github.com/HanifanPNG" class="hover:text-gray-600 transition"
+              ><i class="fa-brands fa-github"></i
+            ></a>
+            <a href="https://hanifan-pangabekti.vercel.app/" class="hover:text-blue-500 transition"
+              ><i class="fa-solid fa-globe"></i
+            ></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- footer -->
+    <div class="pb-10">
+      <div class="caveat flex items-center justify-center">
+        <h1 class="text-xl">→Made with hnifn.png</h1>
+      </div>
+    </div>
+    <script>
+      function toggleModal() {
+        const modal = document.getElementById("aboutModal");
+        if (modal.classList.contains("hidden")) {
+          modal.classList.remove("hidden");
+          modal.classList.add("flex");
+        } else {
+          modal.classList.add("hidden");
+          modal.classList.remove("flex");
+        }
+      }
+
+      // Tutup modal jika klik di luar area putih
+      window.onclick = function (event) {
+        const modal = document.getElementById("aboutModal");
+        if (event.target == modal) {
+          toggleModal();
+        }
+      };
+    </script>
+  </body>
+</html>

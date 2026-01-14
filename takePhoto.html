@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>BubblyBooth UI</title>
+    <!-- font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Poppins:wght@400;500;600;700&family=Caveat:wght@400..700&family=Sail&display=swap"
+      rel="stylesheet"
+    />
+    <!-- animate Css -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <!-- icon -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <!-- style -->
+    <style>
+      .sail {
+        font-family: "Sail", system-ui;
+        font-weight: 400;
+        font-style: normal;
+      }
+      .caveat {
+        font-family: "Caveat", cursive;
+        font-weight: 400;
+        font-style: normal;
+      }
+    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-[#F5E8CB]">
+    <div class="mt-4">
+      <header class="w-full">
+        <div class="flex items-center justify-between py-3 px-4 text-2xl">
+          <h1 class="sail">Blububooth!</h1>
+        </div>
+      </header>
+      <!-- Container -->
+      <section class="flex items-center justify-center">
+        <div class="bg-transparent w-[450px] p-6 text-center">
+          <button
+            id="cameraBtn"
+            class="caveat w-full my-3 py-2 rounded-xl bg-[#ffb703] text-white font-semibold animate__animated animate__pulse animate__infinite infinite"
+          >
+            <i class="fa-solid fa-camera"></i> Use Camera
+          </button>
+          <div class="flex mb-3 gap-2">
+            <!-- jepret -->
+            <button
+              id="captureBtn"
+              class="caveat w-full py-2 rounded-md bg-[#e9c46a] text-white font-semibold hidden"
+            >
+              <i class="fa-solid fa-camera"></i> Take Photos
+            </button>
+            <!-- Stop camera -->
+            <button
+              id="ReTakeBtn"
+              class="caveat w-full py-2 rounded-md bg-[#f4a261] text-white font-semibold hidden"
+            >
+              <i class="fa-solid fa-repeat"></i> retake Photos
+            </button>
+          </div>
+          <!-- Photo Preview -->
+          <div
+            class="relative w-full h-64 bg-gray-100 rounded-2xl flex items-center justify-center mb-4 border-2 border-solid border-black"
+          >
+            <video
+              id="video"
+              class="scale-x-[-1] w-full h-full object-cover hidden rounded-2xl"
+              autoplay
+              playsinline
+            ></video>
+            <div
+              id="countdownText"
+              class="absolute inset-0 flex flex-col items-center justify-center text-white text-4xl font-bold bg-black/30 hidden"
+            ></div>
+            <span
+              id="placeholder"
+              class="text-gray-400 text-sm flex items-center justify-center h-full"
+              >Photo Preview</span
+            >
+          </div>
+
+          <!-- Buttons -->
+          <div class="space-y-3">
+            <!-- download -->
+            <button
+              class="w-full py-2 rounded-xl bg-gray-300 text-gray-500 font-semibold cursor-not-allowed hidden"
+              disabled
+            >
+              Download
+            </button>
+          </div>
+          <!-- Thumbnails -->
+          <div id="thumbnails" class="mt-3 grid grid-cols-3 gap-2"></div>
+
+          <!-- Footer -->
+          <p class="text-xs text-gray-400 mt-4"></p>
+        </div>
+      </section>
+      <div class="my-5 flex justify-center items-center gap-x-3">
+        <a href="index.html">
+          <button
+            id="backBtn"
+            class="py-2 px-4 rounded-xl bg-[#e76f51] text-white font-semibold"
+          >
+            <i class="fa-solid fa-arrow-left"></i> Back
+          </button>
+        </a>
+        <button
+          id="nextBtn"
+          class="py-2 px-4 rounded-xl bg-[#e76f51] text-white font-semibold hidden"
+          disabled
+        >
+          <i class="fa-regular fa-pen-to-square"></i> Edit Photo
+        </button>
+      </div>
+      <!-- footer -->
+      <div class="pb-10">
+        <div class="caveat flex items-center justify-center">
+          <h1 class="text-xl">→Made with hnifn.png</h1>
+        </div>
+      </div>
+      <script src="script.js"></script>
+    </div>
+  </body>
+</html>
