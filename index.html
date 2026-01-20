@@ -51,12 +51,12 @@
     <section class="min-h-screen px-16">
       <div class="flex flex-col items-center justify-center">
         <h1 class="text-3xl sail py-10">Blububooth!</h1>
-        <div class="grid grid-cols-2 items-center h-full">
-          <div class="flex flex-col pb-32 gap-3 justify-center">
+        <div class="grid md:grid-cols-2 items-center h-full">
+          <div class="flex flex-col pb-32 gap-3 justify-center order-2 md:order-1">
             <a href="takePhoto.html">
               <button
                 id="startPhoto"
-                class="caveat font-bold bg-green-500 p-3 w-80 text-white rounded-xl text-xl animate__animated animate__headShake animate__infinite infinite"
+                class="caveat font-bold bg-green-500 p-3 w-80 text-white rounded-xl text-xl animate__animated animate__headShake animate__infinite infinite hover:scale-110"
               >
                 Start Photo
               </button>
@@ -69,19 +69,17 @@
               </button>
             </a>
           </div>
-          <div class="relative h-[500px]">
-            <!-- Mockup 2 (di bawah) -->
+          <div class="relative h-[500px] order-1 md:order-2">
             <img
               src="../assets/img/mockup2.png"
               width="250"
-              class="absolute top-48 left-20 border-2 border-black border-dashed rotate-6 z-10"
+              class="absolute top-48 left-20 border-2 border-black border-dashed rotate-6 z-10 "
             />
 
-            <!-- Mockup 1 (di atas / menimpa) -->
             <img
               src="../assets/img/mockup1.png"
               width="250"
-              class="absolute top-0 left-10 border-2 border-black border-dashed -rotate-6 z-20"
+              class="absolute md:top-0 md:left-10 left-5  border-2 border-black border-dashed -rotate-6 z-20"
             />
           </div>
         </div>
